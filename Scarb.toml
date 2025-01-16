@@ -11,5 +11,12 @@ openzeppelin = "0.20.0"
 openzeppelin_introspection = "0.20.0"
 openzeppelin_token = "0.20.0"
 
+[dev-dependencies]
+snforge_std = "0.35.1"
+assert_macros = "2.9.2"
+
+[[target.starknet-contract]]
+sierra = true
+
 [scripts]
 test = "snforge test"
