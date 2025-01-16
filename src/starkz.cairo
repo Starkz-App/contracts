@@ -1,4 +1,4 @@
-use core::starknet::{ContractAddress, get_caller_address};
+use core::starknet::{contract_address_const, ContractAddress, get_caller_address};
 
 #[starknet::interface]
 pub trait IStarkz<T> {
@@ -26,7 +26,7 @@ pub mod Starkz {
 
     #[abi(embed_v0)]
     impl ERC721MixinImpl = ERC721Component::ERC721MixinImpl<ContractState>;
-    // impl ERC721InternalImpl = ERC721Component::ERC721InternalImpl<ContractState>;
+    impl ERC721InternalImpl = ERC721Component::InternalImpl<ContractState>;
     
     #[storage]
     struct Storage {
