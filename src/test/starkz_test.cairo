@@ -5,7 +5,10 @@ use snforge_std::{
     declare, ContractClassTrait, DeclareResultTrait, start_cheat_caller_address,
     stop_cheat_caller_address, EventSpyAssertionsTrait, spy_events, load,
 };
-
+use openzeppelin_token::erc721::interface::{
+    IERC721Dispatcher, IERC721DispatcherTrait, IERC721MetadataDispatcher,
+    IERC721MetadataDispatcherTrait,
+};
 use starkz::starkz::{IStarkzDispatcher, IStarkzDispatcherTrait};
 
 fn deploy_contract(name: ByteArray) -> (IStarkzDispatcher, ContractAddress){
@@ -40,11 +43,15 @@ fn test_counter(){
 fn test_publish(){
     let (starkz, starkz_address) = deploy_contract("Starkz");
     start_cheat_caller_address(starkz_address, 123.try_into().unwrap());
+    let erc721 = IERC721Dispatcher { contract_address: starkz_address };
+    assert_eq!(erc721.balance_of(123.try_into().unwrap()),0, "shouldnt have publications");
+
     let id = starkz.publish(
         123.try_into().unwrap(),
         'testing-the-publication',
         "https://ipfs.io/ipfs/"
     );
+    assert_eq!(erc721.balance_of(123.try_into().unwrap()),1, "should have one publication");
     assert_eq!(id, 1, "this should be the first publication");
     assert_eq!(starkz.count(),1, "should have increased counter");
     assert_eq!(starkz.get_publication(starkz.count()), "https://ipfs.io/ipfs", "ipfsHash is incorrect");

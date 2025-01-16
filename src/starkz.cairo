@@ -86,7 +86,9 @@ pub mod Starkz {
 
         fn publish(ref self: ContractState, owner: ContractAddress, slug: felt252, ipfsHash: ByteArray) -> u256 {
             
-            assert(self.slugs.read(slug) != 0, 'choose another slug'); //essa msg tem que ir pro front
+            // assert(self.slugs.read(slug) == 0, 'choose another slug'); 
+            //essa msg tem que ir pro front
+            
             assert(owner == get_caller_address(), 'owner cant publish');
             
             self.increment();
