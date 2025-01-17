@@ -1,6 +1,9 @@
-mod starkz;
+mod Starkz;
 
 #[cfg(test)]
 mod test {
-    mod starkz_test;
+    mod StarkzTest;
+}
+mod mock {
+    pub mod Receiver;
 }
