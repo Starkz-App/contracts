@@ -1,0 +1,4 @@
+[sncast.my-braavos]
+account = "my-braavos"
+accounts-file = "/home/pedrorosalba/.starknet_accounts/starknet_open_zeppelin_accounts.json"
+url = "https://starknet-sepolia.public.blastapi.io/rpc/v0_7"
