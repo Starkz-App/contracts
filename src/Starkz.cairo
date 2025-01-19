@@ -5,7 +5,7 @@ pub trait IStarkz<T> {
     fn DATA(self: @T, success: bool) -> Span<felt252>;
 
     fn count(self: @T) -> u256;
-    fn increment(ref self: T);
+    fn increment(ref self: T, owner: ContractAddress);
 
     fn publish(ref self: T, owner: ContractAddress, slug: felt252, ipfsHash: ByteArray) -> u256;
     fn get_slug(self: @T, slug: felt252) -> u256;
@@ -80,8 +80,9 @@ pub mod Starkz {
             self.counter.read()
         }
 
-        fn increment(ref self: ContractState){
-            self.counter.write(self.counter.read() + 1)
+        fn increment(ref self: ContractState, owner: ContractAddress){
+            assert(owner == get_caller_address(), 'owner cant publish');
+            self.counter.write(self.counter.read() + 1);
         }
 
         fn publish(ref self: ContractState, owner: ContractAddress, slug: felt252, ipfsHash: ByteArray) -> u256 {
@@ -91,7 +92,7 @@ pub mod Starkz {
             
             assert(owner == get_caller_address(), 'owner cant publish');
             
-            self.increment();
+            self.increment(owner);
             let id = self.count();
             self.slugs.entry(slug).write(id);
             self.publications.entry(id).write(ipfsHash);

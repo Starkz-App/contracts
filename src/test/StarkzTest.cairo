@@ -42,7 +42,8 @@ fn test_counter(){
     let (starkz, starkz_address) = deploy_starkz();
     assert_eq!(starkz.count(),0, "counter should be zero");
 
-    starkz.increment();
+    start_cheat_caller_address(starkz_address,contract_address_const::<'123'>());
+    starkz.increment(contract_address_const::<'123'>());
     assert_eq!(starkz.count(),1, "should have increased counter");
 
 }
