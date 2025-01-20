@@ -96,7 +96,7 @@ pub mod Starkz {
             let id = self.count();
             self.slugs.entry(slug).write(id);
             self.publications.entry(id).write(ipfsHash);
-            self.erc721.safe_mint(owner,id,self.DATA(true));
+            self.erc721.mint(owner,id);
             id
 
         }
