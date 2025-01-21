@@ -1,5 +1,4 @@
 # Starkz: From AI to ZK
-## Cairo Smart Contracts
 
 Starkz – a decentralized public knowledge hub powered on Starknet to share and reward information -- a dynamic community dapp where users contribute and share information in a decentralized way. 
 
